@@ -1,0 +1,24 @@
+[build-system]
+# Minimum requirements for the build system to execute.
+requires = [
+    "wheel",
+    "setuptools",
+    "Cython>=0.29.18",
+]
+
+
+[tool.black]
+line-length = 88
+target-version = ['py36']
+include = '\.pyi?$'
+force-exclude = '''
+(
+  /(
+      src/{{ cookiecutter.project_slug }}/view
+   )/
+)
+'''
+
+[tool.isort]
+profile = "black"
+multi_line_output = 3

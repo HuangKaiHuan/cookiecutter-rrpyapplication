@@ -1,0 +1,14 @@
+{
+    "full_name": "Huang Kai Huan",
+    "email": "huang_kh@robotics.robotics.com",
+    "repo_protocol": ["http", "https"],
+    "repo_hosting_domain": "192.168.16.33",
+    "repo_username": "huang_kh",
+    "project_name": "Nameless",
+    "project_slug": "{{ cookiecutter.project_name.lower().replace(' ', '_').replace('-', '_') }}",
+    "project_short_description": "An example package. Generated with cookiecutter-rrpyapplication.",
+
+    "create_author_file": "y",
+    "pyinstaller_bundle_to": ["one-folder", "one-file"],
+    "gitlab_ci": "y"
+}
