@@ -97,7 +97,7 @@ def init_repo(c):
 @task
 def upload(c, filename, url):
     full_version = versioneer.get_versions()["version"]
-    zip_file_name = f"{filename}-{full_version}"
+    zip_file_name = f"{Path(filename)}-{full_version}"
     zip_file_name_with_ext = zip_file_name + ".zip"
     if Path(filename).is_dir():
         shutil.make_archive(zip_file_name, "zip", filename)
