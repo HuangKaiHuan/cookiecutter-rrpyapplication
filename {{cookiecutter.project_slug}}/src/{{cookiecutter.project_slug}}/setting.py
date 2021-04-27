@@ -7,7 +7,7 @@ _DEFAULT_PROJECT_ROOT = Path(
 )
 _DEFAULT_LIB_PATH = _DEFAULT_PROJECT_ROOT.joinpath("lib")
 _DEFAULT_INPUT_PATH = _DEFAULT_PROJECT_ROOT.joinpath("data")
-_DEFAULT_OUTPUT_PATH = Path().home().joinpath(".nameless")
+_DEFAULT_OUTPUT_PATH = Path().home().joinpath(".{{cookiecutter.project_slug}}")
 
 PROJECT_ROOT = Path(os.environ.get("DEFAULT_PROJECT_ROOT", _DEFAULT_PROJECT_ROOT))
 LIB_PATH = Path(os.environ.get("LIB_PATH", _DEFAULT_LIB_PATH))
