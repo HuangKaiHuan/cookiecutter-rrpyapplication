@@ -101,8 +101,9 @@ def upload(c, filename, url):
     zip_file_name_with_ext = zip_file_name + ".zip"
     if Path(filename).is_dir():
         shutil.make_archive(zip_file_name, "zip", filename)
+        files = {"file": open(zip_file_name_with_ext, "rb")}
     else:
-        shutil.move(filename, zip_file_name_with_ext)
+        shutil.move(filename, zip_file_name)
+        files = {"file": open(zip_file_name, "rb")}
 
-    files = {"file": open(zip_file_name_with_ext, "rb")}
     requests.post(url, files=files)
