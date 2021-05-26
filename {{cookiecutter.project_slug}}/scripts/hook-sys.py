@@ -1,3 +1,9 @@
+"""
+由于将源码打包成.so后，pyinstaller无法自动分析出import的库，
+该文件用于自动分析工程内所有import库，在代码内有import sys，自动触发，请不要删除。
+如果没有import sys，可以将文件名修改为其他名字 ：hook-{你的import库}.py。
+参考链接：https://pyinstaller.readthedocs.io/en/stable/hooks.html
+"""
 import os
 import re
 from pathlib import Path
