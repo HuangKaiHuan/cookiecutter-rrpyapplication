@@ -107,6 +107,7 @@ You should read `Semantic Versioning 2.0.0 <http://semver.org/>`_ before bumping
 * ``inv bumpversion patch`` to increase version from `1.0.0` to `1.0.1`.
 * ``inv bumpversion minor`` to increase version from `1.0.0` to `1.1.0`.
 * ``inv bumpversion major`` to increase version from `1.0.0` to `2.0.0`.
+* ``inv bumpversion auto`` to auto increase version.
 
 At the same time, it will auto update the changelog.
 
