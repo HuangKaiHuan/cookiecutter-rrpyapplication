@@ -14,6 +14,7 @@ lint:
     - export LANG=C.UTF-8
   stage: lint
   script:
+    - pip install -U pip
     - pip install -e . -f 3rdparty
     - pre-commit run -a
     - gitlint --commits HEAD
@@ -27,6 +28,7 @@ test:
     - python -V
   stage: test
   script:
+    - pip install -U pip
     - pip install -e . -f 3rdparty
     - inv test
   tags:
@@ -38,6 +40,7 @@ build_repo:
   before_script:
     - pyenv local 3.7.6
   script:
+    - pip install -U pip
     - pip install -e . -f 3rdparty
     - inv freeze
   artifacts:
@@ -57,6 +60,7 @@ deploy:
   variables:
     URL: "http://192.168.16.35:5001/upload/{{ cookiecutter.project_slug }}"
   script:
+    - pip install -U pip
     - pip install -e . -f 3rdparty
     - inv upload -f dist/{{ cookiecutter.project_slug }} -u $URL
   dependencies:

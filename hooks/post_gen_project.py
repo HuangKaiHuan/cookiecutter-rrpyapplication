@@ -28,3 +28,32 @@ if __name__ == "__main__":
     else:
         remove_file("one-file.spec")
         move_file("one-folder.spec", "{{ cookiecutter.project_slug }}.spec")
+
+    print("""
+    ################################################################################
+    ################################################################################
+        You have successfully created `{{ cookiecutter.project_name }}`.
+    ################################################################################
+        You've used these cookiecutter parameters:
+    {% for key, value in cookiecutter.items()|sort %}
+            {{ "{0:30}".format(key + ":") }} {{ "{0!r}".format(value).strip("u") }}
+    {%- endfor %}
+    ################################################################################
+        To get started run these:
+            cd {{ cookiecutter.project_slug }}
+
+            # create virtualenv(recommend)
+            python3 -m venv venv
+            source venv/bin/activate
+
+            # install dependencies
+            pip install -U pip
+            pip install -e .[dev]
+
+            # auto init the repo by invoke command
+            inv init-repo
+
+            # Push to remote repo
+            git remote add origin git@{{ cookiecutter.repo_hosting_domain }}:{{ cookiecutter.repo_username }}/{{ cookiecutter.project_slug }}.git
+            git push -u origin master --tags
+    """)

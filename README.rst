@@ -52,8 +52,8 @@ Quickstart
 ::
 
     # Install pipx if cookiecutter are not installed
-    python -m pip install --user pipx
-    python -m pipx ensurepath
+    python3 -m pip install --user pipx
+    python3 -m pipx ensurepath
 
     # Use cookiecutter to create project from this template
     pipx run cookiecutter gh:HuangKaiHuan/cookiecutter-rrpyapplication
@@ -62,7 +62,7 @@ Quickstart
     cd existing_folder
 
     # create virtualenv(recommend)
-    python -m venv venv
+    python3 -m venv venv
     source venv/bin/activate
 
     # install dependencies
@@ -76,7 +76,7 @@ Quickstart
     git init
     git add .
     git commit -m "chore: First commit"
-    git tag 0.1.0 # (must 0.1.0)
+    git tag $your_version
     pre-commit install -t pre-commit
     pre-commit install -t pre-push
     pre-commit install -t commit-msg

@@ -7,7 +7,7 @@
     "project_name": "Nameless",
     "project_slug": "{{ cookiecutter.project_name.lower().replace(' ', '_').replace('-', '_') }}",
     "project_short_description": "An example package. Generated with cookiecutter-rrpyapplication.",
-
+    "version": "0.1.0",
     "create_author_file": "y",
     "pyinstaller_bundle_to": ["one-folder", "one-file"],
     "gitlab_ci": "y"
