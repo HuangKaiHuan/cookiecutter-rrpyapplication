@@ -48,7 +48,7 @@ if __name__ == "__main__":
 
             # install dependencies
             pip install -U pip
-            pip install -e .[dev]
+            pip install -e .
 
             # auto init the repo by invoke command
             inv init-repo
