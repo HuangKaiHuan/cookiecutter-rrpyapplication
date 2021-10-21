@@ -62,7 +62,7 @@ Ready to contribute? Here's how to set up `{{ cookiecutter.project_slug }}` for 
 
    Now you can make your changes locally.
 
-6. If you use new dependence, use ``pip freeze > requirements.txt`` add it to the requirements.txt
+6. If you use new dependence, use ``inv freeze-req`` add it to the requirements.txt
 
 7. Commit your changes and push your branch to remote repo::
 

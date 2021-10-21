@@ -31,6 +31,17 @@ def freeze(c, clean_=False):
     c.run("pyinstaller {{ cookiecutter.project_slug }}.spec --clean")
 
 
+@task
+def freeze_req(c):
+    c.run("pip freeze > requirements.txt")
+    requirement_lines = [
+        i for i in open("requirements.txt").readlines() if not i.startswith("-e ")
+    ]
+    with open("requirements_inv.txt", "w") as f:
+        f.writelines(requirement_lines)
+    os.rename(src="requirements_inv.txt", dst="requirements.txt")
+
+
 def _analysis_bump_part(c, tag):
     git_log_result = c.run(f"git log --pretty=format:%s --no-merges {tag}..HEAD")
 
