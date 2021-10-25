@@ -20,10 +20,16 @@ def parse_imports(root):
                     for line in f.readlines():
                         match = regex.search(line)
                         if match and len(match.groups()) > 0:
-                            if not match.group(1) in imports and not match.group(
-                                1
-                            ).startswith("."):
-                                imports.append(match.group(1))
+                            import_str = match.group(1)
+                            if import_str not in imports and not import_str.startswith(
+                                "."
+                            ):
+                                imports.append(import_str)
+
+                            if import_str.startswith("src.") or import_str == "src":
+                                raise RuntimeError(
+                                    "from {{cookiecutter.project_slug}} import xxx instead of from src.{{cookiecutter.project_slug}} import xxx"
+                                )
     return imports
 
 
