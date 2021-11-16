@@ -45,7 +45,7 @@ repos:
     stages: [commit-msg]
     language: system
     entry: gitlint
-    args: [--contrib=CT1, --ignore=B6, --msg-filename]
+    args: [--ignore=B6, --extra-path=./gitlint_extra_rules.py, --msg-filename]
 
   - id: test
     name: test

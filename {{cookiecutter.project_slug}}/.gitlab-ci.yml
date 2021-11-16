@@ -17,7 +17,7 @@ lint:
     - pip install -U pip
     - pip install -e . -f 3rdparty
     - pre-commit run -a
-    - gitlint --commits HEAD
+    - gitlint --commits HEAD --extra-path ./gitlint_extra_rules.py
   tags:
     - docker
     - local
