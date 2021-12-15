@@ -117,13 +117,6 @@ def bumpversion(c, part):
 
 
 @task
-def test(c):
-    c.run("coverage erase")
-    c.run("pytest --cov -sx")
-    c.run("coverage html -d build/coverage/")
-
-
-@task
 def init_repo(c):
     git_path = Path(".git")
     if git_path.exists():

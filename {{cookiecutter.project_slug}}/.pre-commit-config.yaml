@@ -44,13 +44,13 @@ repos:
     name: gitlint
     stages: [commit-msg]
     language: system
-    entry: gitlint
-    args: [--ignore=B6, --extra-path=./gitlint_extra_rules.py, --msg-filename]
+    entry: tox
+    args: [-e gitlint, --, --msg-filename]
 
   - id: test
     name: test
     stages: [push]
     language: system
-    entry: inv test
+    entry: tox
     types: [python]
     pass_filenames: false
