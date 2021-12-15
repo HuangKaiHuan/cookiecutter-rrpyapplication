@@ -10,5 +10,6 @@
     "version": "0.1.0",
     "create_author_file": "y",
     "pyinstaller_bundle_to": ["one-folder", "one-file"],
-    "gitlab_ci": "y"
+    "gitlab_ci": "y",
+    "python_version": ["3.6", "3.7", "3.8", "3.9"]
 }

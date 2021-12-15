@@ -6,11 +6,6 @@ import io
 import os
 import sys
 
-# Python supported version checks. Keep right after stdlib imports to ensure we
-# get a sensible error for older Python versions
-if sys.version_info[:2] < (3, 6):
-    raise RuntimeError("Python version >= 3.6 required.")
-
 from setuptools import find_packages, setup
 from setuptools.extension import Extension
 
@@ -56,7 +51,7 @@ def setup_package():
     metadata = dict(
         author="{{ cookiecutter.full_name.replace("\"", "\\\"") }}",
         author_email="{{ cookiecutter.email }}",
-        python_requires=">=3.6",
+        python_requires="~={{ cookiecutter.python_version }}.0",
         classifiers=[
             "Development Status :: 2 - Pre-Alpha",
             "Intended Audience :: Developers",
@@ -65,6 +60,7 @@ def setup_package():
             "Programming Language :: Python :: 3.6",
             "Programming Language :: Python :: 3.7",
             "Programming Language :: Python :: 3.8",
+            "Programming Language :: Python :: 3.9",
         ],
         description="{{ cookiecutter.project_short_description }}",
         install_requires=open('requirements.txt').readlines(),

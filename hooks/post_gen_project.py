@@ -43,7 +43,7 @@ if __name__ == "__main__":
             cd {{ cookiecutter.project_slug }}
 
             # create virtualenv(recommend)
-            python3 -m venv venv
+            python{{ cookiecutter.python_version }} -m venv venv
             source venv/bin/activate
 
             # install dependencies

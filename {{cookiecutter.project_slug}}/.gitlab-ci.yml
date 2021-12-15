@@ -1,5 +1,8 @@
 image: 192.168.16.36:5000/cicd
 
+variables: 
+  PYTHON: python{{ cookiecutter.python_version }}
+
 stages:
   - lint
   - test
@@ -8,27 +11,22 @@ stages:
 
 lint:
   before_script:
-    - pyenv local 3.7.6
-    - python -V
     - export LC_ALL=C.UTF-8
     - export LANG=C.UTF-8
+    - $PYTHON -m pip install -U pip
+    - $PYTHON -m pip install -e . -f 3rdparty
   stage: lint
   script:
-    - pip install -U pip
-    - pip install -e . -f 3rdparty
-    - pre-commit run -a
-    - tox -e gitlint -- --commits HEAD
+    - $PYTHON -m pre_commit run -a
+    - $PYTHON -m tox -e gitlint -- --commits HEAD
   tags:
     - docker
     - local
 
 test:
-  before_script:
-    - pyenv local 3.6.7 3.7.6 3.8.7
-    - python -V
   stage: test
   script:
-    - tox
+    - $PYTHON -m tox
   tags:
     - docker
     - local
@@ -36,11 +34,10 @@ test:
 build_repo:
   stage: build
   before_script:
-    - pyenv local 3.7.6
+    - $PYTHON -m pip install -U pip
+    - $PYTHON -m pip install -e . -f 3rdparty
   script:
-    - pip install -U pip
-    - pip install -e . -f 3rdparty
-    - inv freeze
+    - $PYTHON -m invoke freeze
   artifacts:
     paths:
       - dist
@@ -52,15 +49,14 @@ build_repo:
     - tags
 
 deploy:
-  before_script:
-    - pyenv local 3.7.6
   stage: deploy
   variables:
     URL: "http://192.168.16.35:5001/upload/{{ cookiecutter.project_slug }}"
+  before_script:
+    - $PYTHON -m pip install -U pip
+    - $PYTHON -m pip install -e . -f 3rdparty
   script:
-    - pip install -U pip
-    - pip install -e . -f 3rdparty
-    - inv upload -f dist/{{ cookiecutter.project_slug }} -u $URL
+    - $PYTHON -m invoke upload -f dist/{{ cookiecutter.project_slug }} -u $URL
   dependencies:
     - build_repo
   tags:

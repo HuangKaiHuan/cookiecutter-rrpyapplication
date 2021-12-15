@@ -45,7 +45,7 @@ Ready to contribute? Here's how to set up `{{ cookiecutter.project_slug }}` for 
 3. Install your local copy into a virtualenv. ::
 
     $ cd {{ cookiecutter.project_slug }}/
-    $ python3 -m venv venv
+    $ python{{ cookiecutter.python_version }} -m venv venv
     $ source venv/bin/activate
     $ pip install -U pip
     $ pip install -e . -f 3rdparty
