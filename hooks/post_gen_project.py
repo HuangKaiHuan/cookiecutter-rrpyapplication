@@ -29,6 +29,12 @@ if __name__ == "__main__":
         remove_file("one-file.spec")
         move_file("one-folder.spec", "{{ cookiecutter.project_slug }}.spec")
 
+    if "{{cookiecutter.python_version}}" == "3.9":
+        remove_file("requirements.txt")
+        move_file("requirements_py39.txt", "requirements.txt")
+    else:
+        remove_file("requirements_py39.txt")
+
     print("""
     ################################################################################
     ################################################################################
