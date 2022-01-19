@@ -2,13 +2,13 @@ import sys
 
 import PyQt5.QtWidgets
 
-from {{ cookiecutter.project_slug }}.controller.sample import SampleController
+from {{cookiecutter.project_slug}}.main_window import MainWindow
 
 
 def main():
     app = PyQt5.QtWidgets.QApplication(sys.argv)
-    controller = SampleController()
-    controller.show()
+    window = MainWindow()
+    window.show()
     sys.exit(app.exec_())
 
 
