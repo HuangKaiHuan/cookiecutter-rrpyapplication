@@ -16,5 +16,5 @@ class CounterView(QtWidgets.QWidget):
         self._ui.pushButton_add.pressed.connect(lambda: self.signal_add_pressed.emit())
         self._ui.pushButton_sub.pressed.connect(lambda: self.signal_sub_pressed.emit())
 
-    def set_count(self, value: str):
+    def set_count(self, value):
         self._ui.lineEdit_count.setText(str(value))
