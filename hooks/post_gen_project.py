@@ -6,6 +6,9 @@ import shutil
 PROJECT_DIRECTORY = Path(os.path.realpath(os.path.curdir))
 
 
+def remove_dir(dir_):
+    shutil.rmtree(PROJECT_DIRECTORY.joinpath(dir_).as_posix())
+
 def remove_file(filepath):
     os.remove(PROJECT_DIRECTORY.joinpath(filepath).as_posix())
 
@@ -29,11 +32,8 @@ if __name__ == "__main__":
         remove_file("one-file.spec")
         move_file("one-folder.spec", "{{ cookiecutter.project_slug }}.spec")
 
-    if "{{cookiecutter.python_version}}" == "3.9":
-        remove_file("requirements.txt")
-        move_file("requirements_py39.txt", "requirements.txt")
-    else:
-        remove_file("requirements_py39.txt")
+    move_file("requirements/py{{ cookiecutter.python_version|replace('.', '') }}.txt", "requirements.txt")
+    remove_dir("requirements")
 
     print("""
     ################################################################################

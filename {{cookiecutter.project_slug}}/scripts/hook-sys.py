@@ -8,6 +8,8 @@ import os
 import re
 from pathlib import Path
 
+from PyInstaller.utils.hooks import get_package_paths
+
 
 def parse_imports(root):
     imports = []
@@ -34,3 +36,18 @@ def parse_imports(root):
 
 
 hiddenimports = parse_imports(Path(__file__).parent.parent.joinpath("src"))
+
+datas = []
+try:
+    import pymvcam
+
+    datas.append((get_package_paths("pymvcam")[1], "pymvcam"))
+except ImportError:
+    ...
+
+try:
+    import pyrcc
+
+    datas.append((get_package_paths("pyrcc")[1], "pyrcc"))
+except ImportError:
+    ...
