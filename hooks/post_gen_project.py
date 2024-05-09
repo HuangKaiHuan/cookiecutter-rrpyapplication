@@ -50,11 +50,12 @@ if __name__ == "__main__":
 
             # create virtualenv(recommend)
             python{{ cookiecutter.python_version }} -m venv venv
-            source venv/bin/activate
+            source venv/bin/activate # for linux
+            venv/Scripts/activate # for windows
 
             # install dependencies
-            pip install -U pip
-            pip install -e .
+            python -m pip install -U pip
+            python -m pip install -e .
 
             # auto init the repo by invoke command
             inv init-repo

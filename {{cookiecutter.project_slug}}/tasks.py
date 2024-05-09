@@ -1,5 +1,7 @@
 import os
 import shutil
+import stat
+import glob
 from pathlib import Path
 
 import requests
@@ -8,6 +10,10 @@ from invoke import UnexpectedExit, task
 
 import versioneer
 
+
+def readonly_handler(func, path, execinfo):
+    os.chmod(path, stat.S_IWRITE)
+    func(path)
 
 @task
 def clean(c, docs=False, bytecode=False, extra=""):
@@ -19,15 +25,17 @@ def clean(c, docs=False, bytecode=False, extra=""):
     if extra:
         patterns.append(extra)
     for pattern in patterns:
-        c.run("rm -rf {}".format(pattern))
+        files = glob.glob(pattern, recursive=True)
+        for file in files:
+            shutil.rmtree(file, onerror=readonly_handler)
 
 
 @task
 def freeze(c, clean_=False):
     if clean_:
         clean(c)
-
-    c.run("rm -rf dist")
+    elif os.path.exists("dist"):
+        shutil.rmtree("dist", onerror=readonly_handler)
     c.run("python setup.py build --build-lib build/lib")
     c.run("pyinstaller {{ cookiecutter.project_slug }}.spec --clean")
 
@@ -36,11 +44,10 @@ def freeze(c, clean_=False):
 def freeze_req(c):
     c.run("pip freeze > requirements.txt")
     requirement_lines = [
-        i for i in open("requirements.txt").readlines() if not i.startswith("-e ")
+        i for i in open("requirements.txt").readlines() if not i.startswith("-e ") and not i.startswith("#")
     ]
-    with open("requirements_inv.txt", "w") as f:
+    with open("requirements.txt", "w") as f:
         f.writelines(requirement_lines)
-    os.rename(src="requirements_inv.txt", dst="requirements.txt")
 
 
 def _analysis_bump_part(c, tag):
@@ -112,7 +119,7 @@ def bumpversion(c, part):
             "Empty Change! you must have at least one commit type of fix, feat or breaking change"
         )
     c.run("git add CHANGELOG.rst")
-    c.run(f"git commit -m 'chore: bump version -> {new_version}'")
+    c.run(f'git commit -m "chore: bump version -> {new_version}"')
     c.run(f"git tag -f {new_version}")
 
 
@@ -124,7 +131,7 @@ def init_repo(c):
             ".git repo already exists, do you want to delete it? yes/no : "
         ).lower()
         if user_input in ["y", "yes"]:
-            shutil.rmtree(git_path.as_posix())
+            shutil.rmtree(git_path.as_posix(), onerror=readonly_handler)
         else:
             return
     c.run("git init")
@@ -133,10 +140,10 @@ def init_repo(c):
     c.run("pre-commit install -t commit-msg")
     c.run("git add .")
     try:
-        c.run("git commit -m 'chore: First commit'")
+        c.run('git commit -m "chore: First commit"')
     except UnexpectedExit:
         c.run("git add .")
-        c.run("git commit -m 'chore: First commit'")
+        c.run('git commit -m "chore: First commit"')
     finally:
         c.run("git tag {{ cookiecutter.version }}")
 
